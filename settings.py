@@ -83,8 +83,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media",
     "django.core.context_processors.request",
 
-    "bus_tracker.context_processors.settings",
-    "bus_tracker.context_processors.version_info",
+#    "bus_tracker.context_processors.settings",
+#    "bus_tracker.context_processors.version_info",
 )
 
 MIDDLEWARE_CLASSES = (
