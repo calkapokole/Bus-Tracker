@@ -1,18 +1,34 @@
 # Django settings for bus_tracker project.
 
+import os
+import django
+
+# calculated paths for django and the project
+# used as starting points for various other paths
+DJANGO_ROOT = os.path.dirname(os.path.realpath(django.__file__))
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+
+SITE_NAME = "Bus Tracker"
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+INTERNAL_IPS = "127.0.0.1"
+DATE_FORMAT = 'd N Y'
+
+STATIC_ROOT = os.path.join(SITE_ROOT, 'media')
+STATIC_URL = "/media/"
+
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
+    ('Paweł Prażak', 'pawelprazak@gmail.com'),
 )
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = ''           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = ''             # Or path to database file if using sqlite3.
-DATABASE_USER = ''             # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.
+DATABASE_ENGINE = 'postgresql_psycopg2'   # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_NAME = 'bt'             # Or path to database file if using sqlite3.
+DATABASE_USER = 'bt'             # Not used with sqlite3.
+DATABASE_PASSWORD = '123bt321'   # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
@@ -21,11 +37,11 @@ DATABASE_PORT = ''             # Set to empty string for default. Not used with 
 # although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Europe/Warsaw'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pl'
 
 SITE_ID = 1
 
@@ -57,6 +73,17 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.load_template_source',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.request",
+
+    "bus_tracker.context_processors.settings",
+    "bus_tracker.context_processors.version_info",
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -66,9 +93,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'bus_tracker.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(SITE_ROOT, 'templates')
 )
 
 INSTALLED_APPS = (
@@ -76,4 +101,9 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.admin',
+
+    'django_extensions',
+
+    'bus_tracker.crawler',
 )
